@@ -1,0 +1,30 @@
+[package]
+name = "snake"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.5"
+png = "0.17.13"
+thin-engine = "0.1.4"
+tobj = "4.0.2"
+awedio = { version = "0.4.0", default-features = false, features = ["cpal", "symphonia-mp3"] }
+
+[profile.release] 
+opt-level = 'z'     # Optimize for size
+lto = true          # Enable link-time optimization
+codegen-units = 1   # Reduce number of codegen units to increase optimizations
+panic = 'abort'     # Abort on panic
+strip = true        # Strip symbols from binary*
+
+[profile.dist]
+inherits = "release"
+opt-level = "z"
+debug = false
+strip = true
+lto = true
+codegen-units = 1
+incremental = false
+panic = "abort"
